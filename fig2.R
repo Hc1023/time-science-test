@@ -346,9 +346,9 @@ Sys.setlocale("LC_TIME", "C")
     
 }
 text(par()$usr[1] - (par()$usr[2] -par()$usr[1]) * 0.1, par()$usr[4] + (par()$usr[4] - par()$usr[3]) * 0.06, labels = "B", xpd = T, cex = 2)
-S.C <- 1+max(retro_vec)-retro_vec
-REJ1.C <- REJ1-dif
-REJ2.C <- REJ1-dif
+S.B <- 1+max(retro_vec)-retro_vec
+REJ1.B <- REJ1-dif
+REJ2.B <- REJ1-dif
 
 #######################   Panel C  ############################
 
@@ -487,9 +487,9 @@ legend("topleft", legend = c("Observed", "SAPHIRE-GEMF"),
 
 text(par()$usr[1] - (par()$usr[2] -par()$usr[1]) * 0.1, par()$usr[4] + (par()$usr[4] - par()$usr[3]) * 0.06, labels = "C", xpd = T, cex = 2)
 
-S.B <- s
-REJ1.B <- REJ1
-REJ2.B <- REJ2
+S.C <- s
+REJ1.C <- REJ1
+REJ2.C <- REJ2
 
 #######################   Panel D  ############################
 rejection_sampling <- function(pred_mat, doc_date, cond){
