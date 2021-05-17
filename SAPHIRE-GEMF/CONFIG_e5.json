@@ -1,0 +1,71 @@
+{
+    "ContactNetwork": "NetworkX",
+    "ContactNetworkGenerator": "BarabasiAlbert",
+    "Driver": "Default",
+    "EndCriteria": "GEMF",
+    "Logging": "FileSTDOUT",
+    "NodeAvailability": "None",
+    "NodeEvolution": "None",
+    "NumBranchSample": "Single",
+    "NumTimeSample": "None",
+    "PostValidation": "Dummy",
+    "SeedSelection": "Random",
+    "SeedSequence": "NoSeqs",
+    "SequenceEvolution": "NoSeqs",
+    "Sequencing": "NoSeqs",
+    "SourceSample": "Random",
+    "TimeSample": "None",
+    "TransmissionNodeSample": "GEMF",
+    "TransmissionTimeSample": "SAPHIREGEMF",
+    "TreeNode": "Simple",
+    "TreeUnit": "Same",
+    "gemf_path": "GEMF",
+    "grinder_path": "grinder",
+    "hmmemit_path": "hmmemit",
+    "java_path": "/usr/bin/java",
+    "num_edges_from_new": 8,
+    "nw_rename_path": "nw_rename",
+
+    "num_cn_nodes": 100000,
+    "num_seeds": 1,
+    "saphire_freq_s": 99999/100000, 
+    "saphire_freq_e": 1/100000, 
+    "saphire_freq_p": 0, 
+    "saphire_freq_i": 0, 
+    "saphire_freq_a": 0, 
+    "saphire_freq_h": 0, 
+    "saphire_freq_r": 0, 
+
+    # a=0.55
+    # b=1.31/16
+    # r=0.15
+    # De=2.9/365
+    # Dp=2.3/365
+    # Di=2.9/365
+    # Dq=21/365
+    # Dh=30/365
+
+
+    "saphire_s_to_e_seed": 0, 
+    "saphire_e_to_p": 365/2.9, # 1/De
+    "saphire_p_to_i": 0.15*365/2.3, # r/Dp
+    "saphire_p_to_a": (1-0.15)*365/2.3, # (1-r)/Dp
+    "saphire_i_to_h": 365/21, # 1/Dq
+    "saphire_i_to_r": 365/2.9, # 1/Di
+    "saphire_a_to_r": 365/2.9, # 1/Di
+    "saphire_h_to_r": 365/30, # 1/Dh
+    "saphire_s_to_e_by_e": 0,
+    "saphire_s_to_e_by_p": 0.55*.385*365/16, # a*b
+    "saphire_s_to_e_by_i": 0.385*365/16, # b
+    "saphire_s_to_e_by_a": 0.55*.385*365/16, # a*b
+
+
+    "vts_growthRate": 0,
+    "vts_max_attempts": 1000,
+    "vts_model": "constant",
+    "vts_n0": 1,
+    "vts_t50": -99999,
+	"tree_mutation_rate": 0.0008,
+	"end_time": 100/365,
+	
+}
