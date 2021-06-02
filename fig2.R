@@ -11,7 +11,7 @@ if(F){
 } 
 
 #
-outname="FIG2_back_0517"
+outname="FIG2_back_0518"
 pdf(paste0("D:/OneDrive - zju.edu.cn/lab/git/time-science-test/", 
            outname, ".pdf"), width = 15, height = 10)
 par(mar = c(4, 5, 2.5, 1))
@@ -140,29 +140,30 @@ for (xx in 0:xl) {
 ptime <- 0:xl
 {
     plot(ptime, ptime, ylim = c(0, max(observe) * 1.05), 
-         xlab = "", ylab = "", type = "p", col = "white", pch = 16, xaxt="n", cex = 0.5)
+         xlab = "", ylab = "", type = "p", col = "white", pch = 16, xaxt="n", 
+         cex = 0.5, cex.axis = 1.2)
     grid(10, 10, lty = 1, col = alpha("lightgray",0.4))
-    mtext("Onset date (2019-2020)", side = 1, line  = 3, cex = 1.01)
-    mtext("No. of ascertained cases", side = 2, line = 3, cex = 1.01)
+    mtext("Onset date (2019-2020)", side = 1, line  = 3, cex = 1.3)
+    mtext("No. of ascertained cases", side = 2, line = 3, cex = 1.3)
     
     
     mydate <- as.Date("2020-01-01") - anchor + c(0:xl)
     Sys.setlocale("LC_TIME", "C")
     mydate <- format(mydate, "%b %d")
-    axis(1, at = seq(0, xl, 10), labels = mydate[seq(0, xl, 10)+1])
+    axis(1, at = seq(0, xl, 15), labels = mydate[seq(0, xl, 15)+1], cex.axis = 1.2)
     abline(v = c(10, 23)-1+anchor, lty = 3, lwd = 2, col = "darkgrey")
     text(c(10, 23)-1+anchor, par()$usr[4], 
          labels = mydate[c(10, 23)+anchor-1+1], 
-         col = "darkgrey", pos = 3, xpd = T)
+         col = "darkgrey", pos = 3, xpd = T, cex=1.3)
     abline(v = anchor, lty = 3, lwd = 2)
     REJ1 <- anchor-as.numeric(as.Date("2020-01-01") - as.Date("2019-11-17"))
     REJ2 <- anchor-as.numeric(as.Date("2020-01-01") - as.Date("2019-12-01"))
     text(c(REJ1, REJ2), par()$usr[4], 
          labels = mydate[c(REJ1+1, REJ2+1)], 
-         col = "darkgrey", pos = 3, xpd = T)
-    text(anchor, par()$usr[4], labels = mydate[anchor+1], pos = 3, xpd = T)
-    text(anchor-4, max(observe), expression(2019))
-    text(anchor+4, max(observe), expression(2020))
+         col = "darkgrey", pos = 3, xpd = T, cex=1.3)
+    text(anchor, par()$usr[4], labels = mydate[anchor+1], pos = 3, xpd = T, cex=1.3)
+    text(anchor-4, max(observe), expression(2019), cex=1.3)
+    text(anchor+4, max(observe), expression(2020), cex=1.3)
     
 }
 
@@ -175,18 +176,18 @@ s <- anchor-retro_first_cond_vec[pass==1]
 polygon(c(min(s):max(s), max(s):min(s)),
         c(rep(60,max(s)-min(s)+1), rev(rep(80,max(s)-min(s)+1))),
         col = alpha("#BC3C29FF", 1), border = NA)
-text((min(s)+max(s))/2, 140,
-     paste("Date of index case:", paste(mydate[min(s)+1],mydate[max(s)+1],sep = " - ")), cex = 1.1)
+text((min(s)+max(s))/2+5, 140,
+     paste("Date of index case:", paste(mydate[min(s)+1],mydate[max(s)+1],sep = " - ")), cex = 1.3)
 
 # text((min(s)+max(s))/2, 140,
-#      "Date of the index case", cex = 1.1)
+#      "Date of the index case", cex = 1.3)
 
 low <- hdi(s, credMass = 0.99)[1]
 up <- hdi(s, credMass = 0.99)[2]
 polygon(c(low:up, rev(low:up)), c(rep(200,(up-low+1)), rev(rep(250,(up-low+1)))), 
         col = alpha("#F8766D", 1), border = NA) #7876B1FF
 text((low+up)/2, 300, 
-     paste("99% HPD:", paste(mydate[low+1],mydate[up+1],sep = " - ")), cex = 1.1)
+     paste("99% HPD:", paste(mydate[low+1],mydate[up+1],sep = " - ")), cex = 1.3)
 
 
 low <- hdi(s, credMass = 0.95)[1]
@@ -195,14 +196,14 @@ up <- hdi(s, credMass = 0.95)[2]
 polygon(c(low:up, rev(low:up)), c(rep(350,(up-low+1)), rev(rep(400,(up-low+1)))), 
         col = alpha("#F8766D", 0.5), border = NA) #7876B1FF
 text((low+up)/2, 450, 
-     paste("95% HPD:", paste(mydate[low+1],mydate[up+1],sep = " - ")), cex = 1.1)
+     paste("95% HPD:", paste(mydate[low+1],mydate[up+1],sep = " - ")), cex = 1.3)
 
-text(median(s), 540, paste("Median:", mydate[median(s)+1]), cex = 1.1)
+text(median(s), 540, paste("Median:", mydate[median(s)+1]), cex = 1.3)
 # observed data
 points((1:23)+(anchor-1), observe, col = "black", pch = 4, cex = 0.8)
 
 legend("topleft", legend = c("Observed", "SAPHIRE-GEMF"), 
-       col = c("black", "#BC3C29FF"), pch = c(4, 16), bty = "n")
+       col = c("black", "#BC3C29FF"), pch = c(4, 16), bty = "n", cex=1.3)
 # dev.off()
 text(par()$usr[1] - (par()$usr[2] -par()$usr[1]) * 0.1, par()$usr[4] + (par()$usr[4] - par()$usr[3]) * 0.06, labels = "A", xpd = T, cex = 2)
 
@@ -270,6 +271,8 @@ if(nn == max(rvec)){
     estN_mat <- estN_mat0[-c(1:(nn-max(rvec))),]
 }
 
+estN_mat <- estN_mat[,(retro_vec1[,1]==1)]
+
 estN_mean <- round(apply(estN_mat[-c((130-44):130),], 1, mean), 0)
 estN_up <- round(apply(estN_mat[-c((130-44):130),], 1, function(x) quantile(x, 0.975)), 0)
 estN_low <- round(apply(estN_mat[-c((130-44):130),], 1, function(x) quantile(x, 0.025)), 0)
@@ -282,30 +285,30 @@ Sys.setlocale("LC_TIME", "C")
         ptime <- 1:length(estN_mean)
         plot(ptime, estN_mean, ylim = c(0, max(estN_up, observe) * 1.05), 
              xlab = "", ylab = "", type = "p", col = "white", 
-             pch = 16, xaxt="n", cex = 0.5)
+             pch = 16, xaxt="n", cex = 0.5, cex.axis = 1.2)
         grid(10, 10, lty = 1, col = alpha("lightgray",0.4))
-        mtext("Onset date (2019-2020)", side = 1, line  = 3, cex = 1.01)
-        mtext("No. of ascertained cases", side = 2, line = 3, cex = 1.01)
+        mtext("Onset date (2019-2020)", side = 1, line  = 3, cex = 1.3)
+        mtext("No. of ascertained cases", side = 2, line = 3, cex = 1.3)
         mydate <- as.Date("2020-01-01") - max(rvec) + c(0:(68+max(rvec)-1))
         mydate <- format(mydate, "%b %d")
         axis(1, at = seq(1, 68+max(rvec), 11), 
-             labels = mydate[seq(1, 68+max(rvec), 11)])
+             labels = mydate[seq(1, 68+max(rvec), 11)], cex.axis = 1.2)
         #
         abline(v = c(10, 23)+max(rvec), lty = 3, lwd = 2, col = "darkgrey")
         text(c(10, 23)+max(rvec), par()$usr[4], 
              labels = mydate[c(10, 23)+max(rvec)], 
-             col = "darkgrey", pos = 3, xpd = T)
+             col = "darkgrey", pos = 3, xpd = T, cex=1.3)
         abline(v = 1+max(rvec), lty = 3, lwd = 2)
         
         REJ1 <- 1+max(rvec)-as.numeric(as.Date("2020-01-01") - as.Date("2019-11-17"))
         REJ2 <- 1+max(rvec)-as.numeric(as.Date("2020-01-01") - as.Date("2019-12-01"))
         text(c(REJ1, REJ2), par()$usr[4], 
              labels = mydate[c(REJ1, REJ2)], 
-             col = "darkgrey", pos = 3, xpd = T)
+             col = "darkgrey", pos = 3, xpd = T, cex=1.3)
         
-        text(1+max(rvec), par()$usr[4], labels = mydate[1+max(rvec)], pos = 3, xpd = T)
-        text(max(rvec)-3.5, max(estN_up, observe), expression(2019))
-        text(max(rvec)+5.5, max(estN_up, observe), expression(2020))
+        text(1+max(rvec), par()$usr[4], labels = mydate[1+max(rvec)], pos = 3, xpd = T, cex=1.3)
+        text(max(rvec)-3.5, max(estN_up, observe), expression(2019), cex = 1.3)
+        text(max(rvec)+5.5, max(estN_up, observe), expression(2020), cex = 1.3)
     }
     #
     polygon(c(ptime, rev(ptime)), c(estN_up, rev(estN_low)), 
@@ -316,10 +319,10 @@ Sys.setlocale("LC_TIME", "C")
     k <- max(estN_up)/max(observe)
     polygon(c(1:t + dif, rev(1:t + dif)), c(rep(60*k,t), rev(rep(80*k,t))),
             col = alpha("#0072B5FF", 1), border = NA)
-    text(t/2+8+dif, 140*k,
-         paste("Date of index case:", paste(mydate[1+dif],mydate[t+dif],sep = " - ")), cex = 1.1)
+    text(t/2+10+dif, 140*k,
+         paste("Date of index case:", paste(mydate[1+dif],mydate[t+dif],sep = " - ")), cex = 1.3)
     
-    # text(t/2+5+dif, 140, "Date of the index case", cex = 1.1)
+    # text(t/2+5+dif, 140, "Date of the index case", cex = 1.3)
     
     up <- max(retro_vec)-hdi(retro_vec, credMass = 0.99)[1]+1
     low <- max(retro_vec)-hdi(retro_vec, credMass = 0.99)[2]+1
@@ -327,7 +330,7 @@ Sys.setlocale("LC_TIME", "C")
     polygon(c(low:up+dif, rev(low:up+dif)), c(rep(200*k,(up-low+1)), rev(rep(250*k,(up-low+1)))), 
             col = alpha("#7876B1CC", 1), border = NA) #7876B1FF
     text((low+up)/2+5+dif, 300*k, 
-         paste("99% HPD:", paste(mydate[low+dif],mydate[up+dif],sep = " - ")), cex = 1.1)
+         paste("99% HPD:", paste(mydate[low+dif],mydate[up+dif],sep = " - ")), cex = 1.3)
     
     up <- max(retro_vec)-hdi(retro_vec, credMass = 0.95)[1]+1
     low <- max(retro_vec)-hdi(retro_vec, credMass = 0.95)[2]+1
@@ -335,14 +338,15 @@ Sys.setlocale("LC_TIME", "C")
     polygon(c(low:up+dif, rev(low:up+dif)), c(rep(350*k,(up-low+1)), rev(rep(400*k,(up-low+1)))), 
             col = alpha("#7876B1CC", 0.5), border = NA) #7876B1FF
     text((low+up)/2+5+dif, 450*k, 
-         paste("95% HPD:", paste(mydate[low+dif],mydate[up+dif],sep = " - ")), cex = 1.1)
+         paste("95% HPD:", paste(mydate[low+dif],mydate[up+dif],sep = " - ")), cex = 1.3)
     ME <- 1+max(retro_vec)-median(retro_vec)
-    text(ME+dif, 540*k, paste("Median:", mydate[ME+dif]), cex = 1.1)
+    text(ME+dif, 540*k, paste("Median:", mydate[ME+dif]), cex = 1.3)
     
     points(ptime, estN_mean, col = "#0072B5FF", pch = 17, cex = 0.8)
     points((1:23)+max(rvec), observe, col = "black", pch = 4, cex = 0.8)
     #
-    legend("topleft", legend = c("Observed", "SAPHIRE"), col = c("black",  "#0072B5FF"), pch = c(4, 17), bty = "n")
+    legend("topleft", legend = c("Observed", "SAPHIRE"), col = c("black",  "#0072B5FF"), 
+           pch = c(4, 17), bty = "n", cex=1.3)
     
 }
 text(par()$usr[1] - (par()$usr[2] -par()$usr[1]) * 0.1, par()$usr[4] + (par()$usr[4] - par()$usr[3]) * 0.06, labels = "B", xpd = T, cex = 2)
@@ -419,30 +423,31 @@ for (xx in 0:xl) {
 ptime <- 0:xl
 {
     plot(ptime, ptime, ylim = c(0, max(observe) * 1.05), 
-         xlab = "", ylab = "", type = "p", col = "white", pch = 16, xaxt="n", cex = 0.5)
+         xlab = "", ylab = "", type = "p", col = "white", pch = 16, xaxt="n", 
+         cex = 0.5, cex.axis = 1.2)
     grid(10,10, lty = 1, col = alpha("lightgray",0.4))
-    mtext("Onset date (2019-2020)", side = 1, line  = 3, cex = 1.01)
-    mtext("No. of ascertained cases", side = 2, line = 3, cex = 1.01)
+    mtext("Onset date (2019-2020)", side = 1, line  = 3, cex = 1.3)
+    mtext("No. of ascertained cases", side = 2, line = 3, cex = 1.3)
     
     
     mydate <- as.Date("2020-01-01") - anchor + c(0:xl)
     Sys.setlocale("LC_TIME", "C")
     mydate <- format(mydate, "%b %d")
-    axis(1, at = seq(0, xl, 10), labels = mydate[seq(0, xl, 10)+1])
+    axis(1, at = seq(0, xl, 15), labels = mydate[seq(0, xl, 15)+1], cex.axis = 1.2)
     abline(v = c(10, 23)-1+anchor, lty = 3, lwd = 2, col = "darkgrey")
     text(c(10, 23)-1+anchor, par()$usr[4], 
          labels = mydate[c(10, 23)+anchor-1+1], 
-         col = "darkgrey", pos = 3, xpd = T)
+         col = "darkgrey", pos = 3, xpd = T, cex=1.3)
     abline(v = anchor, lty = 3, lwd = 2)
     
     REJ1 <- anchor-as.numeric(as.Date("2020-01-01") - as.Date("2019-11-17"))
     REJ2 <- anchor-as.numeric(as.Date("2020-01-01") - as.Date("2019-12-01"))
     text(c(REJ1, REJ2), par()$usr[4], 
          labels = mydate[c(REJ1+1, REJ2+1)], 
-         col = "darkgrey", pos = 3, xpd = T)
-    text(anchor, par()$usr[4], labels = mydate[anchor+1], pos = 3, xpd = T)
-    text(anchor-4, max(observe), expression(2019))
-    text(anchor+4, max(observe), expression(2020))
+         col = "darkgrey", pos = 3, xpd = T, cex=1.3)
+    text(anchor, par()$usr[4], labels = mydate[anchor+1], pos = 3, xpd = T, cex=1.3)
+    text(anchor-4, max(observe), expression(2019), cex=1.3)
+    text(anchor+4, max(observe), expression(2020), cex=1.3)
     
 }
 
@@ -457,10 +462,10 @@ polygon(c(min(s):max(s), max(s):min(s)),
         c(rep(60,max(s)-min(s)+1), rev(rep(80,max(s)-min(s)+1))),
         col = alpha("#BC3C29FF", 1), border = NA)
 text((min(s)+max(s))/2, 140,
-     paste("Date of index case:", paste(mydate[min(s)+1],mydate[max(s)+1],sep = " - ")), cex = 1.1)
+     paste("Date of index case:", paste(mydate[min(s)+1],mydate[max(s)+1],sep = " - ")), cex = 1.3)
 
 # text((min(s)+max(s))/2, 140,
-#      "Date of the index case", cex = 1.1)
+#      "Date of the index case", cex = 1.3)
 
 
 low <- hdi(s, credMass = 0.99)[1]
@@ -468,7 +473,7 @@ up <- hdi(s, credMass = 0.99)[2]
 polygon(c(low:up, rev(low:up)), c(rep(200,(up-low+1)), rev(rep(250,(up-low+1)))), 
         col = alpha("#F8766D", 1), border = NA) #7876B1FF
 text((low+up)/2, 300, 
-     paste("99% HPD:", paste(mydate[low+1],mydate[up+1],sep = " - ")), cex = 1.1)
+     paste("99% HPD:", paste(mydate[low+1],mydate[up+1],sep = " - ")), cex = 1.3)
 
 low <- hdi(s, credMass = 0.95)[1]
 up <- hdi(s, credMass = 0.95)[2]
@@ -476,14 +481,14 @@ up <- hdi(s, credMass = 0.95)[2]
 polygon(c(low:up, rev(low:up)), c(rep(350,(up-low+1)), rev(rep(400,(up-low+1)))), 
         col = alpha("#F8766D", 0.5), border = NA) #7876B1FF
 text((low+up)/2, 450, 
-     paste("95% HPD:", paste(mydate[low+1],mydate[up+1],sep = " - ")), cex = 1.1)
+     paste("95% HPD:", paste(mydate[low+1],mydate[up+1],sep = " - ")), cex = 1.3)
 
-text(median(s), 540, paste("Median:", mydate[median(s)+1]), cex = 1.1)
+text(median(s), 540, paste("Median:", mydate[median(s)+1]), cex = 1.3)
 # observed data
 points((1:23)+(anchor-1), observe, col = "black", pch = 4, cex = 0.8)
 
 legend("topleft", legend = c("Observed", "SAPHIRE-GEMF"), 
-       col = c("black", "#BC3C29FF"), pch = c(4, 16), bty = "n")
+       col = c("black", "#BC3C29FF"), pch = c(4, 16), bty = "n", cex=1.3)
 
 text(par()$usr[1] - (par()$usr[2] -par()$usr[1]) * 0.1, par()$usr[4] + (par()$usr[4] - par()$usr[3]) * 0.06, labels = "C", xpd = T, cex = 2)
 
@@ -562,30 +567,30 @@ Sys.setlocale("LC_TIME", "C")
         ptime <- 1:length(estN_mean)
         plot(ptime, estN_mean, ylim = c(0, max(estN_up, observe) * 1.05), 
              xlab = "", ylab = "", type = "p", col = "white", 
-             pch = 16, xaxt="n", cex = 0.5)
+             pch = 16, xaxt="n", cex = 0.5, cex.axis = 1.2)
         grid(10, 10, lty = 1, col = alpha("lightgray",0.4))
-        mtext("Onset date (2019-2020)", side = 1, line  = 3, cex = 1.01)
-        mtext("No. of ascertained cases", side = 2, line = 3, cex = 1.01)
+        mtext("Onset date (2019-2020)", side = 1, line  = 3, cex = 1.3)
+        mtext("No. of ascertained cases", side = 2, line = 3, cex = 1.3)
         mydate <- as.Date("2020-01-01") - max(rvec) + c(0:(68+max(rvec)-1))
         mydate <- format(mydate, "%b %d")
         axis(1, at = seq(1, 68+max(rvec), 11), 
-             labels = mydate[seq(1, 68+max(rvec), 11)])
+             labels = mydate[seq(1, 68+max(rvec), 11)], cex.axis = 1.2)
         #
         abline(v = c(10, 23)+max(rvec), lty = 3, lwd = 2, col = "darkgrey")
         text(c(10, 23)+max(rvec), par()$usr[4], 
              labels = mydate[c(10, 23)+max(rvec)], 
-             col = "darkgrey", pos = 3, xpd = T)
+             col = "darkgrey", pos = 3, xpd = T, cex=1.3)
         abline(v = 1+max(rvec), lty = 3, lwd = 2)
         
         REJ1 <- 1+max(rvec)-as.numeric(as.Date("2020-01-01") - as.Date("2019-11-17"))
         REJ2 <- 1+max(rvec)-as.numeric(as.Date("2020-01-01") - as.Date("2019-12-01"))
         text(c(REJ1, REJ2), par()$usr[4], 
              labels = mydate[c(REJ1, REJ2)], 
-             col = "darkgrey", pos = 3, xpd = T)
+             col = "darkgrey", pos = 3, xpd = T, cex=1.3)
         
-        text(1+max(rvec), par()$usr[4], labels = mydate[1+max(rvec)], pos = 3, xpd = T)
-        text(max(rvec)-3.5, max(estN_up, observe), expression(2019))
-        text(max(rvec)+5.5, max(estN_up, observe), expression(2020))
+        text(1+max(rvec), par()$usr[4], labels = mydate[1+max(rvec)], pos = 3, xpd = T, cex=1.3)
+        text(max(rvec)-3.5, max(estN_up, observe), expression(2019), cex=1.3)
+        text(max(rvec)+5.5, max(estN_up, observe), expression(2020), cex=1.3)
     }
     #
     polygon(c(ptime, rev(ptime)), c(estN_up, rev(estN_low)), 
@@ -597,9 +602,9 @@ Sys.setlocale("LC_TIME", "C")
     polygon(c(1:t + dif, rev(1:t + dif)), c(rep(60*k,t), rev(rep(80*k,t))),
             col = alpha("#0072B5FF", 1), border = NA)
     text(t/2+8+dif, 140*k,
-         paste("Date of index case:", paste(mydate[1+dif],mydate[t+dif],sep = " - ")), cex = 1.1)
+         paste("Date of index case:", paste(mydate[1+dif],mydate[t+dif],sep = " - ")), cex = 1.3)
 
-    # text(t/2+8+dif, 140, "Date of the index case", cex = 1.1)
+    # text(t/2+8+dif, 140, "Date of the index case", cex = 1.3)
     
     up <- max(retro_vec)-hdi(retro_vec, credMass = 0.99)[1]+1
     low <- max(retro_vec)-hdi(retro_vec, credMass = 0.99)[2]+1
@@ -607,7 +612,7 @@ Sys.setlocale("LC_TIME", "C")
     polygon(c(low:up+dif, rev(low:up+dif)), c(rep(200*k,(up-low+1)), rev(rep(250*k,(up-low+1)))), 
             col = alpha("#7876B1CC", 1), border = NA) #7876B1FF
     text((low+up)/2+5+dif, 300*k, 
-         paste("99% HPD:", paste(mydate[low+dif],mydate[up+dif],sep = " - ")), cex = 1.1)
+         paste("99% HPD:", paste(mydate[low+dif],mydate[up+dif],sep = " - ")), cex = 1.3)
     
     up <- max(retro_vec)-hdi(retro_vec, credMass = 0.95)[1]+1
     low <- max(retro_vec)-hdi(retro_vec, credMass = 0.95)[2]+1
@@ -615,15 +620,15 @@ Sys.setlocale("LC_TIME", "C")
     polygon(c(low:up+dif, rev(low:up+dif)), c(rep(350*k,(up-low+1)), rev(rep(400*k,(up-low+1)))), 
             col = alpha("#7876B1CC", 0.5), border = NA) #7876B1FF
     text((low+up)/2+5+dif, 450*k, 
-         paste("95% HPD:", paste(mydate[low+dif],mydate[up+dif],sep = " - ")), cex = 1.1)
+         paste("95% HPD:", paste(mydate[low+dif],mydate[up+dif],sep = " - ")), cex = 1.3)
     ME <- 1+max(retro_vec)-median(retro_vec)
-    text(ME+dif, 540*k, paste("Median:", mydate[ME+dif]), cex = 1.1)
+    text(ME+dif, 540*k, paste("Median:", mydate[ME+dif]), cex = 1.3)
 
     points(ptime, estN_mean, col = "#0072B5FF", pch = 17, cex = 0.8)
     points((1:23)+max(rvec), observe, col = "black", pch = 4, cex = 0.8)
     #
     legend("topleft", legend = c("Observed", "SAPHIRE"), col = c("black",  "#0072B5FF"), 
-           pch = c(4, 17), bty = "n")
+           pch = c(4, 17), bty = "n", cex=1.3)
     
 }
 text(par()$usr[1] - (par()$usr[2] -par()$usr[1]) * 0.1, par()$usr[4] + (par()$usr[4] - par()$usr[3]) * 0.06, labels = "D", xpd = T, cex = 2)
@@ -638,6 +643,7 @@ dev.off()
 #
 # layout(matrix(c(1:4), byrow = T, nrow = 2))
 
+if(F){
 #######################   Panel A  ############################
 outname="FIG2_d1"
 pdf(paste0("D:/OneDrive - zju.edu.cn/lab/git/time-science-test/0427/0514/", 
@@ -692,4 +698,4 @@ dev.off()
 #           ncol=2, nrow=2)
 # 
 # dev.off()
-
+}

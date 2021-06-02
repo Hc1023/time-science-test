@@ -10,7 +10,7 @@ if(F){
     load("D:/OneDrive - zju.edu.cn/lab/git/time-science-test/SAPHIRE-GEMF/e5.RData")
 }
 
-pdf(paste0("D:/OneDrive - zju.edu.cn/lab/git/time-science-test/", "fig1", ".pdf"), width = 9, height = 6)
+pdf(paste0("D:/OneDrive - zju.edu.cn/lab/git/time-science-test/", "fig1-06-02", ".pdf"), width = 9, height = 6)
 par(mar = c(4, 5, 2.5, 1))
 
 ## plot canvas
@@ -46,9 +46,9 @@ if(T){
     x <- data_pred$Time[idx]-time+1
     y <- pred[idx]
     smoothingSpline = smooth.spline(x, y, spar=0.35)
-    lines(smoothingSpline, col=alpha("#BC3C29FF",0.5), lwd=glwd, pch=19)
+    lines(smoothingSpline, col=alpha("#f7a35c",0.5), lwd=glwd, pch=19)
     # lines(x, y, col=alpha("#BC3C29FF",0.5), lwd=glwd, pch=19)
-    points(x, y, col = "#BC3C29FF", pch = 16, cex = gcex)
+    points(x, y, col = "#f7a35c", pch = 16, cex = gcex)
 }}
 
 
@@ -65,9 +65,9 @@ for (i in 1:50){
     x <- data_pred$Time[idx]-time+1
     y <- pred[idx]
     smoothingSpline = smooth.spline(x, y, spar=0.35)
-    lines(smoothingSpline, col=alpha("#20854EFF",0.5), lwd=glwd, pch=19)
+    lines(smoothingSpline, col=alpha("#8085e8",0.5), lwd=glwd, pch=19)
     # lines(x, y, col=alpha("#20854EFF",0.5), lwd=glwd, pch=19)
-    points(x, y, col = "#20854EFF", pch = 16, cex = gcex)
+    points(x, y, col = "#8085e8", pch = 16, cex = gcex)
     
 } 
 
@@ -234,6 +234,6 @@ text(retro+5.5, max(observe), expression(2020))
 legend("topleft", legend = c("Observed", "SAPHIRE", 
                              "SAPHIRE-GEMF \n(No. of nodes = 1E5)",
                              "SAPHIRE-GEMF \n(No. of nodes = 1E6)"), 
-       col = c("black", "#0072B5FF", "#20854EFF", "#BC3C29FF"), pch = c(4, 17, 16, 16), 
+       col = c("black", "#0072B5FF", "#8085e8", "#f7a35c"), pch = c(4, 17, 16, 16), 
        lwd = c(NA, NA, 0.5, 0.5), bty = "n", y.intersp = 2)
 dev.off()

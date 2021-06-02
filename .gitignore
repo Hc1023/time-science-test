@@ -3,3 +3,6 @@ personal/*
 data/*
 *.pdf
 *.Rdata
+*.Rhistory
+*.tif
+
